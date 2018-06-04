@@ -1,4 +1,4 @@
-[![LICENSE](https://img.shields.io/github/license/weddle/webex-teams-sdk-wrapper-sample.svg)](https://github.com/weddle/webex-teams-sdk-wrapper-sample/blob/master/LICENSE)
+[![LICENSE](https://img.shields.io/github/license/weddle/webex-teams-sdk-wrapper-lab.svg)](https://github.com/weddle/webex-teams-sdk-wrapper-lab)
 
 # Webex Teams Android SDK Wrapper Lab
 
@@ -19,6 +19,63 @@ If you wish to fully test the application once it has been built, you will need 
 ## Import project into Android Studio
 
 ## Modify gradle to include the SDK Wrapper
+
+The next thing we need to do is to include the SDK and Wrapper in our project.  The Android Studio build process is handled by Gradle, so we will be modifying gradle files in this step.
+
+First we need to update the root build.gradle for the project.  Specifically, we'll need to make some changes to the allprojects section:
+
+```
+allprojects {
+    repositories {
+        google()
+        jcenter()
+//        maven { url 'https://devhub.cisco.com/artifactory/sparksdk/' }
+//        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+Look at the two lines that have been commented out.  The first line tells gradle to include the Cisco repository where the Webex Teams SDK can be included.  The second line references something called JitPack.
+ 
+We use JitPack to distribute the SDK Wrapper releases.  (If you are curious, you can learn more about Jitpack here).
+
+**Uncomment both of these lines by removing the //**
+
+Next we need to make a few changes to the application build.gradle file.
+
+
+Add the dependencies to your application build.gradle, so open it in Android Studio.
+
+First, you will see a section labeled android.  In it, you'll see a defaultconfig section that looks something like this:
+
+```
+    defaultConfig {
+        applicationId "com.ryanweddle.webexteamssdkwrappersample"
+        minSdkVersion 21
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        // multiDexEnabled true
+    }
+```
+
+**Uncomment the line that says "multiDexEnabled true"**.
+
+This is a requirement of the Webex Teams SDK.
+
+Next you'll see a section
+
+
+```
+dependencies {
+    compile('com.ciscospark:androidsdk:1.3.0@aar', {
+        transitive = true
+    })
+    implementation 'com.github.weddle:webex-teams-sdk-wrapper:v0.2'
+}
+```
+
 
 ## Add calling logic to MainActivity
 
@@ -63,9 +120,53 @@ For our purposes, we will use an explicit intent to start the video call.  We cr
 Intent intent = new Intent(MainActivity.this, SparkCall.class);
 ```
 
+You can see we have specified the exact class to be run in the second argument to the Intent constructor.
+
+In our case, it's not enough to specify that we want to start a call, we also need to pass some additional information.  We need a way to specify who we are calling and to identify ourselves to the Webex Teams platform as an authorized caller.
+
+While there are many ways we could do this, Android provides a simple way to pass additional information with the intent.  We will use the putExtra method to Parcel the guest token and Teams ID we want to call.
+
+```
+intent.putExtra(SparkCall.INTENT_CALLEE, mCallEdit.getText().toString());
+intent.putExtra(SparkCall.INTENT_JWT, mTokenEdit.getText().toString());
+```
+
+The first argument to the putExtra method specifies the specific data we are adding, in this case either a TeamsID or a guest token (JWT).  In the second argument, we pass the actual data - in this case we can simply get the text contained in the EditText fields in our app.
+
+Now that we have created our Intent, we are ready to start the Call Activity, we do this with the last statement:
+
+```
+startActivity(intent);
+```
+
+When this statement executes, it will fulfill the intent we have created by starting the SparkCall Activitiy with the extra data we have provided.
+
+Before moving on, **uncomment this code by removing the surrounding comment brackets.** 
+
 
 ## Declare required permissions in Android Manifest
 
+We need to do one last thing before we are ready to build our app.  Open up AndroidManifest.xml from your project and take a look.
+
+You will notice a section that looks like this:
+```
+    <!---
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    -->
+```
+
+Android requires that we declare the permissions our application will need to use.  These are specified in the manifest file.  In this case, uncomment the CAMERA, RECORD_AUDIO, and MODIFY_AUDIO_SETTINGS permissions to declare them.
+
+
+**Delete the lines <!- and --> in order to uncomment the permissions.**
+
+## Build and test the application
+
+Now that we've got all the code ready, it's time to build the application.
+
+Under the Build menu, select "Make Project" in order to build the app.
 
 
 ## License
