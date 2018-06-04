@@ -1,31 +1,48 @@
 [![LICENSE](https://img.shields.io/github/license/weddle/webex-teams-sdk-wrapper-sample.svg)](https://github.com/weddle/webex-teams-sdk-wrapper-sample/blob/master/LICENSE)
 
-# Webex Teams Android SDK Wrapper Sample
+# Webex Teams Android SDK Wrapper Lab
 
-## Embed video calling capabilities into your Android App in just a few lines of code
+## Learn how to embed video calling with Webex Teams
 
-This Simple test application demonstrates the [Webex Teams Android SDK Wrapper](https://github.com/weddle/webex-teams-sdk-wrapper).
+In this lab, you will learn how to embed video calling into a simple Android App using the [Webex Teams Android SDK Wrapper](https://github.com/weddle/webex-teams-sdk-wrapper).
 
-The Webex Teams Android SDK Wrapper is an unofficial convenience library written on top of the [Webex Teams Android SDK](https://developer.webex.com/sdk-for-android.html).  It provides a simple way to add Webex Teams video calling into your Android application.  This library provides a drop in Activity class that can be used to start a Webex Teams video call, without needing to understand the details of the underlying Webex Teams SDK.
-
-This aplication demonstrates how to incorporate the wrapper into an Android application without having to worry about the underlying Webex Teams Android SDK.
-
-The wrapper handles layout of the video streams for local and remote participants, the call setup process, in call functionality such as muting, as well as hanging up the call.
-
-This sample application demonstrates starting the Call activity with an Intent and passing in the TeamsID to call as well as the [Guest Token (JWT)](https://developer.webex.com/guest-issuer.html) to authenticate the call.
+No coding is required - we will walk you through each step of the process from zero to making video calls.
 
 ## Requirements
 
-Download or clone this repository and import it into Android Studio as a new project.  This application's build.gradle will dynamically pull in the Webex Teams Android SDK Wrapper using JitPack.
+In order to run this lab, you will need either a Mac, Windows or Linux PC with Android Studio installed.
 
-You will need to sync gradle after the project imports.  You may see warnings and or errors initially, but resync gradle and build the app.  To test the app, you will need a valid Webex Teams JWT and and TeamsID to call.
+If you wish to fully test the application once it has been built, you will need a compatible Android device (tested on Google Pixel and Samsung Galaxy S7 Edge, but others should work) and a guest token (JWT) to authenticate with.  Ask your lab instructor if you do not have a guest token.
 
-This sample application has been tested on a Google Pixel and a Samsung Galaxy S7 Edge.
+# Lab Instructions
+ 
+## Import project into Android Studio
 
-## Implementation
-The Webex Teams SDK Wrapper uses an Activity as a drop in to display the Video call.  The Call Activity is started by passing an intent with a Guest Token (JWT) and the TeamsID to call.
+## Modify gradle to include the SDK Wrapper
 
-You can look at the sample MainActivity to see how this is done.  In this case, the onClick listener invokes the SparkCall activity by intent.
+## Add calling logic to MainActivity
+
+The Webex Teams SDK Wrapper uses an Activity as a drop in to make and display the Video call.  The Call Activity is started by passing an intent with a Guest Token (JWT) and the TeamsID to call.
+
+Open MainActivity.java under your project in Android Studio.
+
+You will see a section of code that looks something like this:
+
+```
+mCallButton.setOnClickListener(view -> {
+    Log.i(CLASS_TAG, "Call Button Pressed");
+    /*
+    ...
+    */
+
+});
+```
+
+This code block sets a Listener that is invoked whenever the Button referred to by mCallButton is clicked.  You can see that it is currently setup to print a Log that simply says "Call Button Pressed"
+
+You'll see that there is some additional code after the log statement that has been commented out.  This is the code that invokes the SDK Wrapper to make the call.
+
+Let's take a closer look:
 
 ```
 Intent intent = new Intent(MainActivity.this, SparkCall.class);
@@ -35,9 +52,20 @@ intent.putExtra(SparkCall.INTENT_JWT, mTokenEdit.getText().toString());
 startActivity(intent);
 ```
 
-In this example, the call is started based on the contents of two EditText fields.
+Android Applications are made up of Activities, which Google defines as "a single, focused thing a user can do".  In this case, we are interested in leaving our Application's Main Activity, and starting a SparkCall Activity (this is a holdover from the old name for Webex Teams).
 
-The Call activity will return control back to your activity in the event of a call failure or a hangup event.
+
+Android Activities are started by Intents, or "abstract descriptions of operations to be performed."  Intents can be very general (implicit intents), for example sending an email, or they can be very specific (explicit intents) specifying the exact java Class to be run.
+
+For our purposes, we will use an explicit intent to start the video call.  We create  the intent with the following statement:
+
+```
+Intent intent = new Intent(MainActivity.this, SparkCall.class);
+```
+
+
+## Declare required permissions in Android Manifest
+
 
 
 ## License
