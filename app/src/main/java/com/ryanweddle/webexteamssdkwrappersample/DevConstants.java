@@ -8,5 +8,5 @@ package com.ryanweddle.webexteamssdkwrappersample;
 public class DevConstants {
 
     public static final String EXAMPLE_JWT = "DEFAULT_JWT_TOKEN";
-    public static final String EXAMPLE_SPARKID = "teamsid@domain.com";
+    public static final String EXAMPLE_SPARKID = "roomkit@sparkdemos.com";
 }

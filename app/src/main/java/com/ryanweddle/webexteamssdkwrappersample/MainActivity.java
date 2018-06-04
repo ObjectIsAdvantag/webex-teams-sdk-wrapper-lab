@@ -33,11 +33,13 @@ public class MainActivity extends AppCompatActivity {
         mCallButton.setOnClickListener(view -> {
             Log.i(CLASS_TAG, "Call Button Pressed");
 
-            Intent intent = new Intent(MainActivity.this, SparkCall.class);
-            intent.putExtra(SparkCall.INTENT_CALLEE, mCallEdit.getText().toString());
-            intent.putExtra(SparkCall.INTENT_JWT, mTokenEdit.getText().toString());
+            /*
+              Intent intent = new Intent(MainActivity.this, SparkCall.class);
+              intent.putExtra(SparkCall.INTENT_CALLEE, mCallEdit.getText().toString());
+              intent.putExtra(SparkCall.INTENT_JWT, mTokenEdit.getText().toString());
 
-            startActivity(intent);
+              startActivity(intent);
+            */
 
         });
 
