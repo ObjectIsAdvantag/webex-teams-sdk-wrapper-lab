@@ -1,4 +1,7 @@
 [![LICENSE](https://img.shields.io/github/license/weddle/webex-teams-sdk-wrapper-lab.svg)](https://github.com/weddle/webex-teams-sdk-wrapper-lab)
+[![Related Wrapper](https://img.shields.io/badge/related-sdk--wrapper-blue.svg)](https://github.com/weddle/webex-teams-sdk-wrapper)
+[![Related Sample](https://img.shields.io/badge/related-sample--app-blue.svg)](https://github.com/weddle/webex-teams-sdk-wrapper-sample)
+[![Official SDK](https://img.shields.io/badge/related-official--sdk-blue.svg)](https://github.com/webex/spark-android-sdk)
 
 # Webex Teams Android SDK Wrapper Lab
 
