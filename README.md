@@ -18,6 +18,21 @@ If you wish to fully test the application once it has been built, you will need 
  
 ## Import project into Android Studio
 
+To get started, you'll need to create a new project in Android Studio from this repository.
+
+First select **File -> New -> Project from Version Control -> Github**
+
+Fill out the dialog as follows:
+```
+Git Repository URL: https://github.com/weddle/webex-teams-sdk-wrapper-lab
+```
+For the directory names, choose the directory where you want to store this project.  When you are satisified, **click Clone**
+
+If you are prompted to choose, select **New Window**.
+
+**You will see a lot of errors - don't worry, that's expected**
+
+
 ## Modify gradle to include the SDK Wrapper
 
 The next thing we need to do is to include the SDK and Wrapper in our project.  The Android Studio build process is handled by Gradle, so we will be modifying gradle files in this step.
@@ -39,7 +54,7 @@ Look at the two lines that have been commented out.  The first line tells gradle
  
 We use JitPack to distribute the SDK Wrapper releases.  (If you are curious, you can learn more about Jitpack here).
 
-**Uncomment both of these lines by removing the //**
+**Uncomment both of the maven lines by removing the //**
 
 Next we need to make a few changes to the application build.gradle file.
 
@@ -51,10 +66,7 @@ First, you will see a section labeled android.  In it, you'll see a defaultconfi
 ```
     defaultConfig {
         applicationId "com.ryanweddle.webexteamssdkwrappersample"
-        minSdkVersion 21
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        ...
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         // multiDexEnabled true
     }
@@ -64,17 +76,28 @@ First, you will see a section labeled android.  In it, you'll see a defaultconfi
 
 This is a requirement of the Webex Teams SDK.
 
-Next you'll see a section
-
+Next you'll see a section for dependencies that looks something like this:
 
 ```
 dependencies {
-    compile('com.ciscospark:androidsdk:1.3.0@aar', {
-        transitive = true
-    })
-    implementation 'com.github.weddle:webex-teams-sdk-wrapper:v0.2'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    ...
+    // compile('com.ciscospark:androidsdk:1.3.0@aar', { transitive = true })
+    // implementation 'com.github.weddle:webex-teams-sdk-wrapper:v0.2'
+
 }
 ```
+
+**Uncomment the last two lines to include both the SDK and the Wrapper in your project**
+
+You will see a message that says something like the following:
+
+```
+Gradle files have changed since last project sync.
+A project sync may be necessary for the IDE to work properly.
+```
+
+**Click "Sync Now" to sync your project**
 
 
 ## Add calling logic to MainActivity
