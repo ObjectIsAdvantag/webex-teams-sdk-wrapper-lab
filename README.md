@@ -18,22 +18,24 @@ If you wish to fully test the application once it has been built, you will need 
  
 ## Import project into Android Studio
 
-To get started, you'll need to create a new project in Android Studio from this repository.
+Open a command prompt and use git to clone this repository to your local machine.
 
-First select **File -> New -> Project from Version Control -> Github**
-
-Fill out the dialog as follows:
 ```
-Git Repository URL: https://github.com/weddle/webex-teams-sdk-wrapper-lab
+git clone https://github.com/weddle/webex-teams-sdk-wrapper-lab
 ```
-For the directory names, choose the directory where you want to store this project.  When you are satisified, **click Clone**
 
-If you are prompted to choose, select **New Window**.
+First select **"File -> Open"** and navigate to open the folder that was just created.
 
-**You will see a lot of errors - don't worry, that's expected**
+Android Studio will import the repo and rebuild the necessary project files.
+
+**You will see a number of errors - don't worry, that's expected at this point**
 
 
-## Modify gradle to include the SDK Wrapper
+N.B. - **Do Not** select "File -> New -> Project from Version Control -> Github" as Android Studio will not properly rebuild the project if imported that way.
+
+
+
+## Setup gradle to include the SDK Wrapper
 
 The next thing we need to do is to include the SDK and Wrapper in our project.  The Android Studio build process is handled by Gradle, so we will be modifying gradle files in this step.
 
@@ -185,12 +187,14 @@ Android requires that we declare the permissions our application will need to us
 
 **Delete the lines <!- and --> in order to uncomment the permissions.**
 
-## Build and test the application
+## Build and run the application
 
 Now that we've got all the code ready, it's time to build the application.
 
-Under the Build menu, select "Make Project" in order to build the app.
+Under the Build menu, select "Make Project" in order to build the app.  After a few moments, you should see a message that the build completed successfully.
+
+Under the Run menu, select "Run" to run your app.  Since this app will use the camera, you should use an actual Android device to test, rather than an Android Virtual Device.
 
 
 ## License
-Webex Teams Android SDK Wrapper Sample is available under the MIT license. See the LICENSE file for more info.
+Webex Teams Android SDK Wrapper Lab is available under the MIT license. See the LICENSE file for more info.
