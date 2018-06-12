@@ -171,6 +171,13 @@ When this statement executes, it will fulfill the intent we have created by star
 
 Before moving on, **uncomment this code by removing the surrounding comment brackets.** 
 
+## Add Guest Access Token to DevContants.java
+
+In a production application, you would dynamically create users with a Webex Teams Guest Issuer.  For the purposes of this lab, a guest token (jwt) has been provided for you.
+
+Open the file DevConstants under your Android Studio project (it is in the same folder as MainActivity).
+
+You will see two string declarations - replace the text "DEFAULT_JWT_TOKEN" with the token provided by your lab proctor and save the file.
 
 ## Declare required permissions in Android Manifest
 
