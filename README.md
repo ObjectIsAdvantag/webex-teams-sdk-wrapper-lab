@@ -26,8 +26,7 @@ Open a command prompt and use git to clone this repository to your local machine
 ```
 git clone https://github.com/weddle/webex-teams-sdk-wrapper-lab
 ```
-
-First select **"File -> Open"** and navigate to open the folder that was just created.
+Start Android Studio and select **Open an existing Android Studio project** (if Android Studio is already running, select **File -> Open**) and navigate to open the folder that was just created.
 
 Android Studio will import the repo and rebuild the necessary project files.
 
